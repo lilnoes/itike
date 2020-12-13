@@ -1,0 +1,75 @@
+@import "../css/variables.less";
+
+.w3-main {
+    background-color: @main;
+}
+
+div .itangazo {
+    background-color: @main;
+    color: white;
+    font-size: 31;
+    font-weight: bold;
+}
+
+.header {
+    height: 80px;
+    font-weight: bold;
+}
+
+.logo {
+    color: @main;
+    font-size: 102;
+    top: 20px;
+    left: 20px;
+}
+
+.body {
+    height: 500px;
+    width: 100%;
+
+    .image img {
+        height: 100%;
+        width: 100%;
+        filter: brightness(60%);
+    }
+
+    .home-goto-widget {
+        // height: 100px;
+        width: 35%;
+        top: 47%;
+        left: 90px;
+        background-color: white;
+
+        .itariki {
+            background-color: red;
+
+            .none {
+                top: 10px;
+            }
+
+            .ejo {
+                top: 40px;
+            }
+        }
+    }
+}
+
+.home-login {
+    position: relative;
+
+    & {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, .8);
+        top: 0px;
+        z-index: 10;
+    }
+
+    .login-container {
+        z-index: 11;
+        background-color: white;
+        width: 40%;
+
+    }
+}

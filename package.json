@@ -1,0 +1,42 @@
+{
+  "name": "itike",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "builds": "npm run build && nodemon ./src/server/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "@vue/compiler-sfc": "^3.0.4",
+    "axios": "^0.21.0",
+    "css-loader": "^5.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "html-webpack-plugin": "^5.0.0-alpha.15",
+    "less": "^3.12.2",
+    "less-loader": "^7.1.0",
+    "lodash": "^4.17.20",
+    "nodemon": "^2.0.6",
+    "regenerator-runtime": "^0.13.7",
+    "style-loader": "^2.0.0",
+    "vue": "^3.0.4",
+    "vue-loader": "^16.1.1",
+    "vue-select": "^3.10.8",
+    "vue-style-loader": "^4.1.2",
+    "vuex": "^4.0.0-rc.2",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-middleware": "^4.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^7.0.0",
+    "webpack": "^5.10.0"
+  }
+}

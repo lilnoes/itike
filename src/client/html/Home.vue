@@ -11,7 +11,7 @@
 
             <div class="menu w3-display-bottomright">
                 <button class="w3-btn"><i class="fas fa-headphones"></i>Ubufasha</button>
-                <button class="w3-btn"><i class="fas fa-user"></i>Injira</button>
+                <button @click="show_login=true" class="w3-btn"><i class="fas fa-user"></i>Injira</button>
             </div>
         </div>
 
@@ -22,16 +22,16 @@
 
             <div class="home-goto-widget w3-display-left">
                 <div>
-                    <p>Uhagurukiye</p>
-                    <select name="from-location-name" id="from-location-id">
+                    <label>Uhagurukiye </label>
+                    <select class="w3-select" name="from-location-name" id="from-location-id">
                         <option value="kigali">Kigali</option>
                         <option value="muhanga">Muhanga</option>
                     </select>
                 </div>
 
                 <div>
-                    <p>Ukagera</p>
-                    <select name="to-location-name" id="to-location-id">
+                    <label>Ukagera</label>
+                    <select class="w3-select" name="to-location-name" id="to-location-id">
                         <option value="kigali">Kigali</option>
                         <option value="muhanga">Muhanga</option>
                     </select>
@@ -72,11 +72,15 @@
         <div v-show="show_login" class="home-login w3-display-container">
             <div class="fullscreen"></div>
             <div class="login-container w3-display-middle">
-                email:
-                <input type="email">
-                password:
-                <input type="password">
+                <h1 data="chap">chap</h1>
+                <label>email</label>
+                <input class="w3-input" type="email">
+                <label>password</label>
+                <input class="w3-input" type="password">
                 <button class="w3-btn">Login</button>
+                <div class="login-progress">
+                    <div class="progress-item"></div>
+                </div>
                 <div class="login-container-close">
                     <button @click="show_login=false" class="w3-btn">X</button>
                 </div>
@@ -89,4 +93,30 @@
 </script>
 
 <style src="../css/Home.vue.less">
+</style>
+
+<style src="@vueform/multiselect/themes/default.css"></style>
+
+<style lang="less" scoped>
+    .login-progress{
+        position: relative;
+        height: 50px;
+        border: 1px solid red;
+        overflow: hidden;
+        .progress-item{
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(-45deg, red 25%, white 25%, white 50%, red 50%, red 75%, white 75%);
+            background-size: 50px;
+            animation: progress 3s;
+            &::after{
+                content: "";
+            }
+        }
+    }
+
+    @keyframes progress{
+        from{background-position: 0%;}
+        to{background-position: 100%;}
+    }
 </style>

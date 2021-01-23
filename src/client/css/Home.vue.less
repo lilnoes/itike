@@ -71,5 +71,14 @@ div .itangazo {
         background-color: white;
         width: 40%;
 
+        h1{
+            color: red;
+            &:hover:before{
+                content: "( " attr(data) " )";
+                color: blue;
+                background-color: yellow;
+            }
+        }
+
     }
 }

@@ -4,18 +4,6 @@
     background-color: @main;
 }
 
-div .itangazo {
-    background-color: @main;
-    color: white;
-    font-size: 31;
-    font-weight: bold;
-}
-
-.header {
-    height: 80px;
-    font-weight: bold;
-}
-
 .logo {
     color: @main;
     font-size: 102;
@@ -51,34 +39,5 @@ div .itangazo {
                 top: 40px;
             }
         }
-    }
-}
-
-.home-login {
-    position: relative;
-
-    & {
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        background-color: rgba(0, 0, 0, .8);
-        top: 0px;
-        z-index: 10;
-    }
-
-    .login-container {
-        z-index: 11;
-        background-color: white;
-        width: 40%;
-
-        h1{
-            color: red;
-            &:hover:before{
-                content: "( " attr(data) " )";
-                color: blue;
-                background-color: yellow;
-            }
-        }
-
     }
 }

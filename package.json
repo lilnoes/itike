@@ -30,6 +30,7 @@
     "nodemon": "^2.0.6",
     "qrcode": "^1.4.4",
     "regenerator-runtime": "^0.13.7",
+    "stripe": "^8.135.0",
     "style-loader": "^2.0.0",
     "uuid": "^8.3.2",
     "vue": "^3.0.4",

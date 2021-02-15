@@ -42,7 +42,7 @@ export default {
     const password = ref("");
     const login = async () => {
       try {
-        const response = await axios.post("account/login", {
+        const response = await axios.post("api/account/login", {
           username: username.value,
           password: password.value,
         });

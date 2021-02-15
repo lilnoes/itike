@@ -16,7 +16,7 @@
         <button @click="generate">generate</button>
         <button
           v-if="!is_logged_in"
-          @click="(show_login = true), test(), goToLogin()"
+          @click="(show_login = true), goToLogin()"
           class="w3-btn"
         >
           <i class="fas fa-user"></i>Injira
@@ -50,7 +50,7 @@ export default {
       router.push("/login");
     };
     const logout = async () => {
-      await axios.post("account/logout");
+      await axios.post("api/account/logout");
       store.dispatch("getuser");
     };
 

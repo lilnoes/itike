@@ -9,6 +9,7 @@ const compiler = webpack(config)
 const accountApi = require("./api/account.js")
 const busApi = require("./api/buses.js")
 const ticketApi = require("./api/tickets.js")
+const paymentsApi = require("./api/payments.js")
 const cookieSession = require("cookie-session")
 const {v4: uuidv4, v4} = require("uuid")
 
@@ -34,6 +35,7 @@ app.post("/cookie", (req, res)=>{
 app.use("/api/account", accountApi);
 app.use("/api/buses", busApi);
 app.use("/api/tickets", ticketApi);
+app.use("/api/payments", paymentsApi);
 
 app.get("*", (req, res)=>{
     res.sendFile(path.join(APP_DIR, "dist", "index.html"));

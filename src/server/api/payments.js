@@ -12,7 +12,7 @@ router.post("/checkout", async (req, res) => {
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",
-        success_url: "http://itike.com/api/payments/success",
+        success_url: "http://itike.com/api/payments/success?session_id={CHECKOUT_SESSION_ID}",
         cancel_url: "http://itike.com/api/payments/cancel",
         line_items: [{
             price_data: {
@@ -32,7 +32,8 @@ router.post("/checkout", async (req, res) => {
 })
 
 router.get("/success", async (req, res) => {
-    res.send("success")
+    const session = await stripe.checkout.sessions.retrieve(req.query.session_id)
+    res.send({data: session})
 })
 
 router.get("/cancel", async (req, res) => {

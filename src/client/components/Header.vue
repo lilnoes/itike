@@ -6,7 +6,7 @@
       </p>
     </div>
 
-    <div class="container px-4 header w3-display-container">
+    <div class="header w3-display-container">
       <div class="logo w3-display-left">itike.COM</div>
 
       <div class="menu w3-display-bottomright">
@@ -80,7 +80,6 @@ div .itangazo {
 }
 
 .header {
-  @apply rounded-none px-2;
   height: 80px;
   font-weight: bold;
 }

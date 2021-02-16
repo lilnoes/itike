@@ -2,7 +2,7 @@
   <div>
     <div class="flex items-start flex-row p-1">
       <div class="w-1/3 p-2 m-1 relative shadow rounded-lg">
-        <img src="../assets/volcano.png" class="w-32 h-10" />
+        <img :src="src" class="w-32 h-10" />
         <div class="absolute inset-y-0 right-1">Volcano Express</div>
         <hr class="m-1" />
         <div class="font-bold">
@@ -21,7 +21,7 @@
         <p>iyi tike ntago isubizwa</p>
       </div>
       <div class="w-1/3 p-2 m-1 relative shadow rounded-lg">
-        <h2>imyirondoro</h2>
+        <h2 class="title">imyirondoro</h2>
         <hr class="m-2" />
         <div>
           <label for="imeri" class="block">imeri</label>
@@ -41,26 +41,33 @@
         </div>
       </div>
       <div class="w-1/3 p-2 m-1 relative shadow rounded-lg">
-        <h2>Kwishyura</h2>
+        <h2 class="title">Kwishyura</h2>
         <hr class="m-3" />
         <p>Hitamo uburyo bwo kwishyura</p>
-        <button class="bg-green-800" @click="buy">ishyura 2000 Rwf</button>
+        <button
+          class="bg-green-800 text-white text-lg font-bold p-3 rounded-lg hover:text-green-800 hover:bg-white"
+          @click="buy"
+        >
+          ishyura 2000 Rwf
+        </button>
       </div>
     </div>
     <p>
       You need to buy this ticket in <span>{{ time }}</span> minutes
     </p>
-    <button @click="buy">Buy</button>
   </div>
 </template>
 
 <style scoped>
-  label{
-    @apply block;
-  }
-  input{
-    @apply border-black border-2;
-  }
+label {
+  @apply block;
+}
+input {
+  @apply border-black border-2;
+}
+.title{
+  @apply font-bold ml-3 text-lg;
+}
 </style>
 
 <script>
@@ -73,6 +80,7 @@ export default {
     console.log("to", to, "from", from.path);
   },
   setup() {
+    const src = ref("https://itike.s3.amazonaws.com/volcano.png");
     const store = useStore();
     const router = useRouter();
     const mins = 15;
@@ -101,7 +109,7 @@ export default {
       }
       id.value = setInterval(() => {
         now.value = Date.now();
-        if (start.value - now.value <= 3000) clearInterval(id.value);
+        if (start.value - now.value <= 1000) clearInterval(id.value);
       }, 1000);
     });
 
@@ -118,7 +126,7 @@ export default {
       }
     };
 
-    return { time, bus, buy };
+    return { time, bus, buy, src};
   },
 };
 </script>

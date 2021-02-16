@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div><span class="text-sm">iyi tike mugomba kuba mwayiguze mu minota</span> <span class="text-red-700 font-bold">{{time}}</span></div>
     <div class="flex items-start flex-row p-1">
       <div class="w-1/3 p-2 m-1 relative shadow rounded-lg">
         <img :src="src" class="w-32 h-10" />
@@ -52,9 +53,6 @@
         </button>
       </div>
     </div>
-    <p>
-      You need to buy this ticket in <span>{{ time }}</span> minutes
-    </p>
   </div>
 </template>
 

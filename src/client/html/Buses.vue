@@ -1,24 +1,23 @@
 <template>
   <div>
-    <div class="tickets-header">
-      <select v-model="from" class="">
-        vu
+    <div class="bg-black h-10 py-3">
+      <select v-model="from" class="text-white bg-gray-700 mr-6">
         <option v-for="option in options" :key="option" :value="option">
           {{ option }}
         </option>
       </select>
 
-      <button @click="interchange" class="w3-btn">change</button>
+      <button @click="interchange" class="text-white mr-6">hinduranya</button>
 
-      <select v-model="to" class="">
+      <select v-model="to" class="text-white bg-gray-700 mr-6">
         <option v-for="option in options" :key="option" :value="option">
           {{ option }}
         </option>
       </select>
 
-      <input v-model="date" type="date" />
+      <input v-model="date" type="date" class="text-white bg-gray-700 mr-6"/>
 
-      <button @click="search" class="w3-btn">Ongera Ushake</button>
+      <button @click="search" class="text-white bg-gray-700">Ongera Ushake</button>
     </div>
 
     <div class="tickets-list">
@@ -26,15 +25,6 @@
     </div>
   </div>
 </template>
-
-
-<style lang="less" scoped>
-@import "../css/variables.less";
-.tickets-header {
-  background-color: @dark;
-  height: 70px;
-}
-</style>
 
 <script>
 import { ref, computed, watch, onMounted} from "vue";

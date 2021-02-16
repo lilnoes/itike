@@ -1,30 +1,28 @@
 <template>
-  <div>
-    <div class="itangazo">
-      <p class="w3-container">
+  <div class="p-2">
+    <div class="bg-green-800 p-2 text-white font-bold text-xl">
         itangazo: Nta muntu wemerewe kugura itike atayikuye hano...
-      </p>
     </div>
 
-    <div class="header w3-display-container">
-      <div class="logo w3-display-left">itike.COM</div>
+    <div class="relative h-12">
+      <div class="absolute left-0">itike.COM</div>
 
-      <div class="menu w3-display-bottomright">
-        <button class="w3-btn">
+      <div class="absolute right-0 top-3">
+        <button class="ml-2">
           <i class="fas fa-headphones"></i>Ubufasha
         </button>
-        <button @click="generate">generate</button>
+        <button @click="generate" class="ml-2">generate</button>
         <button
           v-if="!is_logged_in"
           @click="(show_login = true), goToLogin()"
-          class="w3-btn"
+          class="ml-2"
         >
           <i class="fas fa-user"></i>Injira
         </button>
-        <button v-if="is_logged_in" class="w3-btn">
+        <button v-if="is_logged_in" class="ml-2">
           <i class="fas fa-user"></i>{{ username }}
         </button>
-        <button v-if="is_logged_in" @click="logout" class="w3-btn">
+        <button v-if="is_logged_in" @click="logout" class="ml-2">
           <i class="fas fa-user"></i>logout
         </button>
       </div>
@@ -69,26 +67,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="less">
-@import "../css/variables.less";
-div .itangazo {
-  background-color: @main;
-  color: white;
-  font-size: 31;
-  font-weight: bold;
-}
-
-.header {
-  height: 80px;
-  font-weight: bold;
-}
-
-.logo {
-  color: @main;
-  font-size: 102;
-  top: 20px;
-  left: 20px;
-  z-index: -999;
-}
-</style>

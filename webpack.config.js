@@ -22,12 +22,12 @@ module.exports = {
 
             {
                 test: /\.css$/,
-                use: ["vue-style-loader", "style-loader", "css-loader"]
+                use: ["vue-style-loader", "style-loader", "css-loader", "postcss-loader"]
             },
 
             {
                 test: /\.less$/,
-                use: ["vue-style-loader", "style-loader", "css-loader", "less-loader"]
+                use: ["vue-style-loader", "style-loader", "css-loader", "postcss-loader", "less-loader"]
             },
 
             {

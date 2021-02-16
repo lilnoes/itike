@@ -4,6 +4,7 @@ import _ from "lodash"
 import { createRouter, createWebHashHistory, createWebHistory, useRoute } from "vue-router"
 import mitt from "mitt"
 import axios from "axios"
+import "../../index.css"
 import regenerator from "regenerator-runtime"
 // require("https://www.w3schools.com/w3css/4/w3.css")
 

@@ -1,16 +1,19 @@
 <template>
-  <div class="home-main-container">
-    <div class="body w3-display-container">
-      <div class="image">
-        <img src="/assets/kigali.jpg" />
+  <div class="">
+    <div class="relative">
+      <div class="">
+        <img :src="background_src" />
       </div>
 
-      <div class="home-goto-widget w3-display-left">
+      <div class="absolute bg-white h-96 w-96 top-4 left-4 p-3 rounded-md">
         <div>
-          <label>Uhagurukiye </label>
+          <div  class="absolute w-5 h-5 p-px left-40 top-16 border-2 border-green-600 rounded-3xl cursor-pointer">
+            <img :src="reverse_url" @click="temp=ukagera;ukagera=uhagurukiye;uhagurukiye=temp" />
+          </div>
+          <label for="from-location-id" class="block font-bold">Uhagurukiye </label>
           <select
             v-model="uhagurukiye"
-            class="w3-select"
+            class="w-full border-b-2 border-gray-600 bg-white mb-6"
             name="from-location-name"
             id="from-location-id"
           >
@@ -21,10 +24,10 @@
         </div>
 
         <div>
-          <label>Ukagera</label>
+          <label for="to-location-id" class="block font-bold">Ukagera</label>
           <select
             v-model="ukagera"
-            class="w3-select"
+            class="w-full border-b-2 border-gray-600 bg-white mb-6"
             name="to-location-name"
             id="to-location-id"
           >
@@ -34,23 +37,20 @@
           </select>
         </div>
 
-        <div class="itariki w3-display-container">
-          <label>itariki</label>
-          <input type="date" v-model="itariki" />
+        <div class="">
+          <label class="float-left font-bold">igihe cyo guhagurukira</label>
+          <button @click="is_none=true" class="float-right px-2 mb-2" :class="[is_none ? 'selected': 'deselected']">none</button>
+          <div class="clear-both"></div>
 
-          <input type="time" v-model="isaha" />
+          <input type="time" v-model="isaha" class="border border-gray-600 mb-2 float-left"/>
+          <button @click="is_none=false" class="float-right px-2" :class="[is_none ? 'deselected': 'selected']">ejo</button>
+          <div class="clear-both"></div>
 
-          <div class="none w3-display-right">
-            <button class="w3-btn">none</button>
-          </div>
-
-          <div class="ejo w3-display-right">
-            <button class="w3-btn">ejo</button>
-          </div>
+          <input type="date" v-model="itariki" class="border border-gray-600"/>
         </div>
 
         <div>
-          <button @click="goToTickets">Shaka imodoka</button>
+          <button @click="goToTickets" class="font-bold text-white bg-green-700 w-full p-3 mt-3 rounded-lg">Shaka imodoka</button>
         </div>
       </div>
     </div>
@@ -66,25 +66,30 @@ import axios from "axios";
 
 export default {
   setup() {
+    const background_src = ref(
+      "https://itike.s3.amazonaws.com/assets/kigali.jpg"
+    );
+    const reverse_url = ref("https://itike.s3.amazonaws.com/assets/reverse.svg");
     const store = useStore();
     const router = useRouter();
     const itariki = ref(utils.getStandardDate());
+    const is_none = ref(false);
     const isaha = ref(utils.getStandardTime());
-    const options = computed(()=>store.state.options)
+    const options = computed(() => store.state.options);
     const uhagurukiye = ref(options.value[0]);
     const ukagera = ref(options.value[1]);
 
-    const goToTickets = async()=>{
+    const goToTickets = async () => {
       store.commit("setlocation", {
-        from : uhagurukiye.value,
-        to : ukagera.value,
-        date : itariki.value,
-        time : isaha.value,
-      })
+        from: uhagurukiye.value,
+        to: ukagera.value,
+        date: itariki.value,
+        time: isaha.value,
+      });
 
-      await store.dispatch("getBuses")
-      router.push("/buses")
-    }
+      await store.dispatch("getBuses");
+      router.push("/buses");
+    };
     return {
       goToTickets,
       options,
@@ -92,47 +97,20 @@ export default {
       ukagera,
       itariki,
       isaha,
+      background_src,
+      is_none,
+      reverse_url
     };
   },
 };
 </script>
 
 <style lang="less">
-@import "../css/variables.less";
-
-.w3-main {
-  background-color: @main;
+.selected{
+  @apply bg-gray-800 text-white font-bold;
 }
-
-.body {
-  height: 500px;
-  width: 100%;
-
-  .image img {
-    height: 100%;
-    width: 100%;
-    filter: brightness(60%);
-  }
-
-  .home-goto-widget {
-    // height: 100px;
-    width: 35%;
-    top: 47%;
-    left: 90px;
-    background-color: white;
-
-    .itariki {
-      background-color: red;
-
-      .none {
-        top: 10px;
-      }
-
-      .ejo {
-        top: 40px;
-      }
-    }
-  }
+.deselected{
+  @apply border-2 border-gray-600;
 }
 </style>
 

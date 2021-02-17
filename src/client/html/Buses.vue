@@ -8,7 +8,7 @@
       </select>
 
       <button @click="interchange" class="text-white mr-6">
-        <InlineSvg :src="change_url"></InlineSvg>
+        <img :src="change_url" class="inline w-20 h-5" />
       </button>
 
       <select v-model="to" class="text-white bg-gray-700 mr-6">
@@ -40,7 +40,7 @@ export default {
   components: { Bus, InlineSvg},
   setup(props) {
     const store = useStore();
-    const change_url = ref("https://itike.s3.amazonaws.com/assets/change.svg");
+    const change_url = ref("https://itike.s3.amazonaws.com/assets/repeat.svg");
     const from = ref(store.state.from);
     const to = ref(store.state.to);
     const date = ref(store.state.date);

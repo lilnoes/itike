@@ -2,3 +2,7 @@
 .env
 .env.backup
 /dist
+/.vscode
+/.editorconfig
+*.mongodb
+*.code-workspace

@@ -7,7 +7,9 @@
         </option>
       </select>
 
-      <button @click="interchange" class="text-white mr-6">hinduranya</button>
+      <button @click="interchange" class="text-white mr-6">
+        <InlineSvg :src="change_url"></InlineSvg>
+      </button>
 
       <select v-model="to" class="text-white bg-gray-700 mr-6">
         <option v-for="option in options" :key="option" :value="option">
@@ -15,9 +17,11 @@
         </option>
       </select>
 
-      <input v-model="date" type="date" class="text-white bg-gray-700 mr-6"/>
+      <input v-model="date" type="date" class="text-white bg-gray-700 mr-6" />
 
-      <button @click="search" class="text-white bg-gray-700">Ongera Ushake</button>
+      <button @click="search" class="text-white bg-gray-700">
+        Ongera Ushake
+      </button>
     </div>
 
     <div class="tickets-list">
@@ -27,24 +31,28 @@
 </template>
 
 <script>
-import { ref, computed, watch, onMounted} from "vue";
+import { ref, computed, watch, onMounted } from "vue";
+import InlineSvg from "vue-inline-svg";
 import { useStore } from "vuex";
 import Bus from "../components/Bus.vue";
-import axios from "axios"
+import axios from "axios";
 export default {
-  components: { Bus },
+  components: { Bus, InlineSvg},
   setup(props) {
     const store = useStore();
+    const change_url = ref("https://itike.s3.amazonaws.com/assets/change.svg");
     const from = ref(store.state.from);
     const to = ref(store.state.to);
     const date = ref(store.state.date);
     const time = ref(store.state.time);
     const options = ref(store.state.options);
     const buses = computed(() => store.state.buses);
-    onMounted(()=>{
-      store.dispatch("getBuses")
+    onMounted(async() => {
+      const svg =await axios.get("https://itike.s3.amazonaws.com/assets/change.svg");
+      console.log("svg", svg);
+      store.dispatch("getBuses");
       axios.post("/cookie");
-    })
+    });
     watch(buses, (newval, oldval) => {
       console.log("buses changed from ", oldval.length, " to", newval.length);
     });
@@ -56,16 +64,26 @@ export default {
     };
 
     const search = () => {
-        console.log("searching...");
-        store.commit("setlocation", {
-          from: from.value,
-          to: to.value,
-          date: date.value,
-          time: time.value,
-        })
-        store.dispatch("getBuses");
-    }
-    return { from, to, date, time, options, interchange, buses, search};
+      console.log("searching...");
+      store.commit("setlocation", {
+        from: from.value,
+        to: to.value,
+        date: date.value,
+        time: time.value,
+      });
+      store.dispatch("getBuses");
+    };
+    return {
+      from,
+      to,
+      date,
+      time,
+      options,
+      interchange,
+      buses,
+      search,
+      change_url,
+    };
   },
 };
 </script>

@@ -1,21 +1,21 @@
 <template>
-  <div class="home-login w3-display-container">
-    <div class="fullscreen"></div>
-    <div class="login-container w3-display-middle">
-      <h1 data="chap">INJIRA</h1>
-      <label>username</label>
-      <input v-model="username" class="w3-input" type="text" />
-      <label>password</label>
-      <input v-model="password" class="w3-input" type="password" />
-      <button @click="login" class="w3-btn">Login</button>
-      <button @click="register" class="w3-btn">Register</button>
-      <button @click="test" class="w3-btn">Test</button>
-      <div class="login-progress">
-        <div class="progress-item"></div>
-      </div>
-      <div class="login-container-close">
-        <button @click="close" class="w3-btn">X</button>
-      </div>
+  <div>
+    <div class="z-10 fixed w-full h-full bg-gray-800 inset-0 bg-opacity-95">.</div>
+    <div class="p-3 z-20 absolute h-96 w-80 bg-white left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <h1 class="font-bold text-center text-2xl">INJIRA</h1>
+      <label class="block">username</label>
+      <input v-model="username" class="border rounded-lg w-full h-10" type="text" />
+      <label class="block mt-5">password</label>
+      <input v-model="password" class="border rounded-lg w-full h-10 mb-5" type="password" />
+
+      <p><span class="float-left text-sm"><input type="checkbox"/> nyibuka</span><span class="float-right font-bold text-sm">mwibagiwe ?</span></p>
+      <div class="clear-both"></div>
+
+
+      <button @click="login" class="w-full bg-green-800 rounded-lg text-white my-5 h-10 font-bold text-xl">INJIRA</button>
+      <p class="font-bold text-sm">Nta konti mufite?</p>
+      <button @click="register" class="w-full border-2 border-green-800 rounded-lg text-green-800 h-10 font-bold text-xl">Fungura konti nshya</button>
+      <button @click="close" class="absolute top-0 right-0 p-1 text-green-800 border border-green-800 font-bold text-lg rounded-circle hover:text-white hover:bg-green-800">X</button>
     </div>
   </div>
 </template>
@@ -61,65 +61,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.login-progress {
-  position: relative;
-  height: 50px;
-  border: 1px solid red;
-  overflow: hidden;
-  .progress-item {
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(
-      -45deg,
-      red 25%,
-      white 25%,
-      white 50%,
-      red 50%,
-      red 75%,
-      white 75%
-    );
-    background-size: 50px;
-    animation: progress 3s;
-    &::after {
-      content: "";
-    }
-  }
-}
-
-@keyframes progress {
-  from {
-    background-position: 0%;
-  }
-  to {
-    background-position: 100%;
-  }
-}
-
-.home-login {
-  position: relative;
-
-  & {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    top: 0px;
-    z-index: 10;
-  }
-
-  .login-container {
-    z-index: 11;
-    background-color: white;
-    width: 40%;
-
-    h1 {
-      color: red;
-      &:hover:before {
-        content: "( " attr(data) " )";
-        color: blue;
-        background-color: yellow;
-      }
-    }
-  }
-}
 </style>

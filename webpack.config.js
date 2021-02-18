@@ -40,7 +40,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpe?g|gif)$/i,
-                use: ["file-loader"]
+                type: "asset"
             },
         ]
     },
@@ -56,11 +56,11 @@ module.exports = {
         new HTMLWebpackPlugin({
             template: "./src/client/html/home.html"
         }),
-        new CopyPlugin({
-            patterns: [
-                { from: "node_modules/@fortawesome/fontawesome-free/", to: "libs/fontawesome" },
-                { from: "src/client/assets/", to: "assets" },
-            ]
-        })
+        // new CopyPlugin({
+        //     patterns: [
+        //         { from: "node_modules/@fortawesome/fontawesome-free/", to: "libs/fontawesome" },
+        //         { from: "src/client/assets/", to: "assets" },
+        //     ]
+        // })
     ]
 }

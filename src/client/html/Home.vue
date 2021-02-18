@@ -7,7 +7,7 @@
 
       <div class="absolute bg-white h-96 w-96 top-4 left-4 p-3 rounded-md">
         <div>
-          <div  class="absolute w-5 h-5 p-px left-40 top-16 border-2 border-green-600 rounded-3xl cursor-pointer">
+          <div  class="absolute w-5 h-5 p-px left-40 top-16 border-2 border-green-600 rounded-3xl cursor-pointer active:ring-2 active:ring-green-800">
             <img :src="reverse_url" @click="temp=ukagera;ukagera=uhagurukiye;uhagurukiye=temp" />
           </div>
           <label for="from-location-id" class="block font-bold">Uhagurukiye </label>
@@ -50,7 +50,7 @@
         </div>
 
         <div>
-          <button @click="goToTickets" class="font-bold text-white bg-green-700 w-full p-3 mt-3 rounded-lg">Shaka imodoka</button>
+          <button @click="goToTickets" class="font-bold text-white bg-green-700 w-full p-3 mt-10 rounded-lg">Shaka imodoka</button>
         </div>
       </div>
     </div>

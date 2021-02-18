@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <h2>Ibibazo byibazwa cyane...</h2>
-    <div class="ikibazo">
-      <div class="prob">
-        <p>Mufata komisiyo?</p>
-      </div>
-      <div class="answer">
-        <p>Oya...</p>
-      </div>
-    </div>
+  <div class="mx-2 mt-4">
+    <h2 class="font-bold ml-6 text-xl">Ibibazo byibazwa cyane</h2>
+    <FaqElement></FaqElement>
+    <FaqElement></FaqElement>
+    <FaqElement></FaqElement>
   </div>
 </template>
+
+<script>
+import FaqElement from "./FaqElement.vue"
+export default {
+  components: {FaqElement}
+}
+</script>

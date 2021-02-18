@@ -53,6 +53,7 @@ const store = createStore({
         return {
             user: { username: "", is_logged_in: false, logged_at: new Date() },
             from: options[0],
+            faq_open: false,
             to: options[1],
             date: utils.getStandardDate(),
             time: utils.getStandardTime(),
@@ -80,7 +81,10 @@ const store = createStore({
             state.bus.to = payload.to;
             state.bus.var = true;
             state.bus.started = payload.started || new Date().getUTCMilliseconds()
-        }
+        },
+        closeFaq(state){
+            state.faq_open = !state.faq_open;
+        },
     },
     actions: {
         async getuser(context) {

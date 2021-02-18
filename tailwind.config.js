@@ -8,6 +8,8 @@ module.exports = {
     extend: {
       ringWidth: ["hover", "active"],
       ringColor: ["hover", "active"],
+      backgroundColor: ["active"],
+      textColor: ["active"]
     },
   },
   plugins: [],

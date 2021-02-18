@@ -12,9 +12,9 @@
       <div class="clear-both"></div>
 
 
-      <button @click="login" class="w-full bg-green-800 rounded-lg text-white my-5 h-10 font-bold text-xl">INJIRA</button>
+      <button @click="login" class="w-full bg-green-800 rounded-lg text-white my-5 h-10 font-bold text-xl border-2 border-green-800 hover:text-green-800 hover:bg-white hover:border-green-800">INJIRA</button>
       <p class="font-bold text-sm">Nta konti mufite?</p>
-      <button @click="register" class="w-full border-2 border-green-800 rounded-lg text-green-800 h-10 font-bold text-xl">Fungura konti nshya</button>
+      <button @click="register" class="w-full border-2 border-green-800 rounded-lg text-green-800 h-10 font-bold text-xl hover:text-green-900 hover:bg-green-200">Fungura konti nshya</button>
       <button @click="close" class="absolute top-0 right-0 p-1 text-green-800 border border-green-800 font-bold text-lg rounded-circle hover:text-white hover:bg-green-800">X</button>
     </div>
   </div>
@@ -35,9 +35,6 @@ export default {
     const register = async () => {
       router.replace("/register");
     };
-    const test = () => {
-      console.log("test");
-    };
     const username = ref("");
     const password = ref("");
     const login = async () => {
@@ -55,7 +52,7 @@ export default {
         console.log("error logging in");
       }
     };
-    return { close, register, username, password, test, login };
+    return { close, register, username, password, login };
   },
 };
 </script>

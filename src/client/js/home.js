@@ -54,6 +54,8 @@ const store = createStore({
             user: { username: "", is_logged_in: false, logged_at: new Date() },
             from: options[0],
             faq_open: false,
+            registered: false,
+            logged: false,
             to: options[1],
             date: utils.getStandardDate(),
             time: utils.getStandardTime(),
@@ -85,6 +87,12 @@ const store = createStore({
         closeFaq(state){
             state.faq_open = !state.faq_open;
         },
+        setRegistered(state, value){
+            state.registered=value;
+        },
+        setLogged(state, value){
+            state.logged=value;
+        }
     },
     actions: {
         async getuser(context) {

@@ -2,6 +2,7 @@
   <div>
     <div class="z-10 fixed w-full h-full bg-gray-800 inset-0 bg-opacity-95">.</div>
     <div class="p-3 z-20 absolute h-auto w-80 bg-white left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <p v-show="registered" class="bg-green-500 text-white p-1 mr-3">Konti yanyu yafunguwe, mwinjire</p>
       <h1 class="font-bold text-center text-2xl">INJIRA</h1>
       <label class="block">username</label>
       <input v-model="username" class="border rounded-lg w-full h-10" type="text" />
@@ -25,7 +26,7 @@
 
 <script>
 import axios from "axios";
-import { ref } from "vue";
+import { ref, onMounted} from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 export default {
@@ -36,6 +37,7 @@ export default {
     const spinner_blue = "https://itike.s3.amazonaws.com/assets/spinner_blue.svg";
     const spinner = ref(spinner_white);
     const progress = ref(false);
+    const registered = ref(false);
     const close = () => {
       router.back();
     };
@@ -44,6 +46,12 @@ export default {
     };
     const username = ref("");
     const password = ref("");
+
+    onMounted(()=>{
+      if(store.state.registered){store.commit("setLogged", false); registered.value=true}
+      setTimeout(()=>registered.value=false, 5000);
+    });
+
     const login = async () => {
       try {
         progress.value = true;
@@ -60,7 +68,7 @@ export default {
         console.log("error logging in");
       }
     };
-    return { close, register, username, password, login, spinner, progress};
+    return { close, register, username, password, login, spinner, progress, registered};
   },
 };
 </script>

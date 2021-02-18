@@ -57,24 +57,32 @@ export default {
       try {
         progress.value = true;
         error.value="";
-        console.log("pass1", password1.value, password2.value);
         if(!nasomye.value){error.value="mugomba kwemera amabwiriza!"; return;}
         if(password1.value!=password2.value){error.value="amagambo banga ntahura!"; return;}
         if(username.value.length <= 5){error.value="akazina kagomba kuba hejuru yamagambo 6"; return;}
         if(password1.value.length <= 5){error.value="ijambo banga rigomba kuba hejuru yamagambo 6"; return;}
-        const response = await axios.post("api/account/login", {
+        const response = await axios.post("api/account/register", {
           username: username.value,
-          password1: password.value,
+          password1: password1.value,
           email: email.value
         });
         if (response.data) {
-          store.dispatch("getuser");
-          router.back();
+          const data = response.data;
+          const errors = [410, 411]
+          if(data.code==200){
+            console.log("success code");
+            store.commit("setRegistered", true);
+            router.replace("/login");
+          }
+          if(errors.includes(data.code)){error.value=data.text;return;}
+          error.value = "mwongere gato";
+          // store.dispatch("getuser");
+          // router.back();
         }
         console.log("response login", response);
       } catch (e) {
+        console.log("error", e);
         error.value = "habayemo ikibazo, mwongere gato";
-        console.log("error logging in");
       }
     };
     return { close, register, username, email, password1, password2, login, spinner, progress, error, nasomye};

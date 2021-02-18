@@ -1,14 +1,17 @@
 <template>
   <div>
     <div class="z-10 fixed w-full h-full bg-gray-800 inset-0 bg-opacity-95">.</div>
-    <div class="p-3 z-20 absolute h-96 w-80 bg-white left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div class="p-3 z-20 absolute h-auto w-80 bg-white left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <h1 class="font-bold text-center text-2xl">INJIRA</h1>
       <label class="block">username</label>
       <input v-model="username" class="border rounded-lg w-full h-10" type="text" />
       <label class="block mt-5">password</label>
-      <input v-model="password" class="border rounded-lg w-full h-10 mb-5" type="password" />
+      <input v-model="password" class="border rounded-lg w-full h-10" type="password" />
 
-      <p><span class="float-left text-sm"><input type="checkbox"/> nyibuka</span><span class="float-right font-bold text-sm">mwibagiwe ?</span></p>
+      <p class="float-right font-bold text-sm mb-4 cursor-pointer">mwibagiwe ijambo banga?</p>
+      <div class="clear-both"></div>
+
+      <p><span class="float-left text-sm"><input type="checkbox" id="nyibuka"/> <label for="nyibuka">nyibuka</label></span></p>
       <div class="clear-both"></div>
 
 

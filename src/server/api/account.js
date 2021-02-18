@@ -42,15 +42,13 @@ router.post("/login", async(req, res)=>{
     try{
         await utils.getDefaultConnection();
         const user = await User.findOne({username: _.defaultTo(req.body.username, "username")})
-        console.log(user)
-        if(_.isNull(user)) return res.send(404)
-        if(user.password != req.body.password) return res.send(404)
+        if(!user) return res.send({code: 403, text: "akazina n'ijambo banga ntibihura!"})
+        if(user.password != req.body.password) return res.send({code: 403, text: "akazina n'ijambo banga ntibihura!"})
         req.session.user = user
-        console.log("success", user)
     }
     catch(e){console.log(e)}
     // req.session.user = true
-    res.send(true)
+    return res.send({code: 403, text: "mwongere mugerageze!"})
 
 })
 

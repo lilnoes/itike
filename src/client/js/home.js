@@ -56,6 +56,7 @@ const store = createStore({
             faq_open: false,
             registered: false,
             logged: false,
+            loggedOut: false,
             to: options[1],
             date: utils.getStandardDate(),
             time: utils.getStandardTime(),
@@ -92,6 +93,9 @@ const store = createStore({
         },
         setLogged(state, value){
             state.logged=value;
+        },
+        setLoggedOut(state, value){
+            state.loggedOut=value;
         }
     },
     actions: {

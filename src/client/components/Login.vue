@@ -60,6 +60,7 @@ export default {
           password: password.value,
         });
         if (response.data) {
+          console.log("data", response.data);
           store.dispatch("getuser");
           router.back();
         }

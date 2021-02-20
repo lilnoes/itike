@@ -55,7 +55,10 @@ export default {
     });
 
     const login = async () => {
+      error.value="";
       try {
+        if(username.value.length <=5){error.value="akazina ntikemewe"; return;}
+        if(password.value.length <=5){error.value="ijambo banga ntiryemewe"; return;}
         progress.value = true;
         const response = await axios.post("api/account/login", {
           username: username.value,
@@ -63,14 +66,13 @@ export default {
         });
         if (response.data) {
           const data = response.data;
-          if(data.code != 200) error.value = data.text;
-          console.log("data", response.data);
+          console.log(data);
+          if(response.status != 200) {error.value = data.text; return;}
           store.dispatch("getuser");
           router.back();
         }
-        console.log("response login", response);
       } catch (e) {
-        console.log("error logging in");
+        error.value="mwongere mugerageze!";
       }
     };
     return { close, register, username, password, login, spinner, progress, registered, error};

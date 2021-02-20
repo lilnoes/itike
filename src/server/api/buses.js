@@ -26,23 +26,23 @@ router.get("/buses", async(req, res)=>{
 
 
 
-// router.get("/generate", async (req, res) => {
-//     try {
-//         utils.getDefaultConnection();
-//         const gen = utils.generate(100, 2);
-//         res.send(200);
-//         for await (const bus of gen) {
-//             let newbus = new Bus();
-//             newbus.from = bus.from;
-//             newbus.to = bus.to;
-//             newbus.date = bus.datetime;
-//             newbus.plaka = bus.plaka;
-//             newbus.type = bus.type;
-//             newbus.save()
-//         }
-//         console.log("finished");
-//     } catch (e) { console.log("error", e);}
+router.get("/generate", async (req, res) => {
+    try {
+        utils.getDefaultConnection();
+        const gen = utils.generate(100, 7);
+        res.send(200);
+        for await (const bus of gen) {
+            let newbus = new Bus();
+            newbus.from = bus.from;
+            newbus.to = bus.to;
+            newbus.date = bus.datetime;
+            newbus.plaka = bus.plaka;
+            newbus.type = bus.type;
+            newbus.save()
+        }
+        console.log("finished");
+    } catch (e) { console.log("error", e);}
 
-// })
+})
 
 module.exports = router

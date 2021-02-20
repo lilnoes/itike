@@ -24,7 +24,7 @@
       </button>
     </div>
 
-    <div class="tickets-list">
+    <div class="tickets-list bg-green-100 py-3">
       <Bus v-for="bus in buses" :key="bus.id" :bus="bus"></Bus>
     </div>
   </div>

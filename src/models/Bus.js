@@ -3,10 +3,11 @@ const mongoose = require("mongoose")
 const BusSchema = new mongoose.Schema({
     type: {type: String},
     from: {type: String},
+    to: {type: String},
+    hours: {type: Number, default: 5},
     fee: {type: Number, default: 2000},
     plaka: {type: String},
     icon: {type: String},
-    to: {type: String},
     date: {type: Date},
     taken_places: {type: Number, default: 0},
     available_places: {type: Number, default: 24},

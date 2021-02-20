@@ -1,5 +1,5 @@
 <template>
-  <div class="ticket w3-container">
+  <div class="ticket w3-container bg-white">
     <div class="image">
       <img src="../assets/volcano.png" />
     </div>

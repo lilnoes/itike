@@ -16,7 +16,8 @@
       <div class="clear-both"></div>
 
 
-      <button @click="login" class="w-full bg-green-800 rounded-lg text-white my-5 h-10 font-bold text-xl border-2 border-green-800 hover:text-green-800 hover:bg-white hover:border-green-800"><span v-show="progress" class="w-7 h-7 inline float-left ml-3 animate-spin"><img :src="spinner"></span>INJIRA</button>
+      <p class="text-red-600 font-bold text-sm mt-5">{{error}}</p>
+      <button @click="login" class="w-full bg-green-800 rounded-lg text-white mb-5 h-10 font-bold text-xl border-2 border-green-800 hover:text-green-800 hover:bg-white hover:border-green-800"><span v-show="progress" class="w-7 h-7 inline float-left ml-3 animate-spin"><img :src="spinner"></span>INJIRA</button>
       <p class="font-bold text-sm">Nta konti mufite?</p>
       <button @click="register" class="w-full border-2 border-green-800 rounded-lg text-green-800 h-10 font-bold text-xl hover:text-green-900 hover:bg-green-200">Fungura konti nshya</button>
       <button @click="close" class="absolute top-0 right-0 p-1 text-green-800 border border-green-800 font-bold text-lg rounded-circle hover:text-white hover:bg-green-800">X</button>
@@ -37,6 +38,7 @@ export default {
     const spinner_blue = "https://itike.s3.amazonaws.com/assets/spinner_blue.svg";
     const spinner = ref(spinner_white);
     const progress = ref(false);
+    const error = ref("");
     const registered = ref(false);
     const close = () => {
       router.back();
@@ -60,6 +62,8 @@ export default {
           password: password.value,
         });
         if (response.data) {
+          const data = response.data;
+          if(data.code != 200) error.value = data.text;
           console.log("data", response.data);
           store.dispatch("getuser");
           router.back();
@@ -69,7 +73,7 @@ export default {
         console.log("error logging in");
       }
     };
-    return { close, register, username, password, login, spinner, progress, registered};
+    return { close, register, username, password, login, spinner, progress, registered, error};
   },
 };
 </script>

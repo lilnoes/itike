@@ -19,12 +19,14 @@
 
       <input v-model="date" type="date" class="text-white bg-gray-700 mr-6" />
 
-      <button @click="search" class="text-white bg-gray-700">
+      <button @click="search" class="text-white bg-gray-700 px-2">
         Ongera Ushake
       </button>
+
+      <span v-show="progress"><img :src="spinner_url" class="ml-4 w-5 h-5 inline-block animate-spin"/></span>
     </div>
 
-    <div class="tickets-list bg-green-100 py-3">
+    <div class="bg-green-100 py-3">
       <Bus v-for="bus in buses" :key="bus.id" :bus="bus"></Bus>
     </div>
   </div>
@@ -41,6 +43,8 @@ export default {
   setup(props) {
     const store = useStore();
     const change_url = ref("https://itike.s3.amazonaws.com/assets/repeat.svg");
+    const spinner_url = ref("https://itike.s3.amazonaws.com/assets/spinner.svg");
+    const progress = ref(true);
     const from = ref(store.state.from);
     const to = ref(store.state.to);
     const date = ref(store.state.date);
@@ -54,7 +58,7 @@ export default {
       axios.post("/cookie");
     });
     watch(buses, (newval, oldval) => {
-      console.log("buses changed from ", oldval.length, " to", newval.length);
+      progress.value = false;
     });
 
     const interchange = () => {
@@ -64,6 +68,7 @@ export default {
     };
 
     const search = () => {
+      progress.value=true;
       console.log("searching...");
       store.commit("setlocation", {
         from: from.value,
@@ -83,6 +88,7 @@ export default {
       buses,
       search,
       change_url,
+      spinner_url, progress
     };
   },
 };

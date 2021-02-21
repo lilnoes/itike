@@ -62,7 +62,7 @@ const store = createStore({
             time: utils.getStandardTime(),
             options: options,
             buses: [],
-            bus: {var: false, date: new Date().getUTCMilliseconds(), from: "", to: "", started: new Date().getUTCMilliseconds()},
+            bus: {var: false, data: {}, started: new Date().getUTCMilliseconds()},
         }
     },
     mutations: {
@@ -78,11 +78,8 @@ const store = createStore({
             state.user.is_logged_in = true;
         },
         setBus(state, payload){
-            state.bus.date = payload.date;
-            state.bus.time = payload.time;
-            state.bus.from = payload.from;
-            state.bus.to = payload.to;
             state.bus.var = true;
+            state.bus.data = payload;
             state.bus.started = payload.started || new Date().getUTCMilliseconds()
         },
         closeFaq(state){

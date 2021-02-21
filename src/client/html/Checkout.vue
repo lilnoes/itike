@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div><span class="text-sm">iyi tike mugomba kuba mwayiguze mu minota</span> <span class="text-red-700 font-bold">{{time}}</span></div>
+    <div>
+      <span class="text-sm">iyi tike mugomba kuba mwayiguze mu minota</span>
+      <span class="text-red-700 font-bold">{{ time }}</span>
+    </div>
     <div class="flex items-start flex-row p-1">
       <div class="w-1/3 p-2 m-1 relative shadow rounded-lg">
         <img :src="src" class="w-32 h-10" />
@@ -63,7 +66,7 @@ label {
 input {
   @apply border-black border-2;
 }
-.title{
+.title {
   @apply font-bold ml-3 text-lg;
 }
 </style>
@@ -83,6 +86,7 @@ export default {
     const router = useRouter();
     const mins = 15;
     const bus = computed(() => store.state.bus);
+    console.log("bus", bus);
     const start = computed(() => bus.value.started + mins * 60 * 1000);
     const id = ref(0);
     const now = ref(Date.now());
@@ -124,7 +128,7 @@ export default {
       }
     };
 
-    return { time, bus, buy, src};
+    return { time, bus, buy, src };
   },
 };
 </script>

@@ -73,18 +73,18 @@ export default {
     const store = useStore();
     const router = useRouter();
     const itariki = ref(utils.getStandardDate());
-    const is_none = ref(false);
     const isaha = ref(utils.getStandardTime());
+    const is_none = ref(false);
     const options = computed(() => store.state.options);
-    const uhagurukiye = ref(options.value[0]);
-    const ukagera = ref(options.value[1]);
+    const uhagurukiye = ref(store.state.ticket.bus.from);
+    const ukagera = ref(store.state.ticket.bus.to);
 
     const goToTickets = async () => {
-      store.commit("setlocation", {
+      console.log("date", itariki.value, isaha.value);
+      store.commit("setLocation", {
         from: uhagurukiye.value,
         to: ukagera.value,
-        date: itariki.value,
-        time: isaha.value,
+        date: new Date(`${itariki.value}T${isaha.value}`).getTime(),
       });
 
       await store.dispatch("getBuses");

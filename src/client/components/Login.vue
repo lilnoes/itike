@@ -50,7 +50,7 @@ export default {
     const password = ref("");
 
     onMounted(()=>{
-      if(store.state.registered){store.commit("setLogged", false); registered.value=true}
+      if(store.state.settings.registered){store.commit("setLogged", false); registered.value=true}
       setTimeout(()=>registered.value=false, 5000);
     });
 

@@ -18,7 +18,7 @@ freeTicketsQueue.process(async (job) => {
         ticket.deleted = true;
         deleteTicketsQueue.add({id: ticket._id}, {delay: 30 * 60 * 1000})
         const bus = ticket.bus;
-        bus.available_places += 1
+        bus.available_places = bus.available_places>= bus.max_places-bus.taken_places ? bus.max_places-bus.taken_places: bus.available_places+1;;
         bus.pending_places -= 1
         ticket.save();
         bus.save()

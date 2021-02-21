@@ -51,48 +51,35 @@ const options = ["Gasabo",
 const store = createStore({
     state() {
         return {
-            user: { username: "", is_logged_in: false, logged_at: new Date() },
-            from: options[0],
-            faq_open: false,
-            registered: false,
-            logged: false,
-            loggedOut: false,
-            to: options[1],
-            date: utils.getStandardDate(),
-            time: utils.getStandardTime(),
+            user: { username: "", is_logged_in: false, logged_at: Date.now() },
             options: options,
+            ticket: {started: Date.now, bus: {date: Date.now(), from: options[0], to: options[1]}},
+            settings: {faq_open: false, registered: false, logged: false, loggedOut: false},
             buses: [],
-            bus: {var: false, data: {}, started: new Date().getUTCMilliseconds()},
         }
     },
     mutations: {
-        setlocation(state, payload) {
-            // console.log(payload);
-            state.from = payload.from;
-            state.to = payload.to;
-            state.date = payload.date;
-            state.time = payload.time;
+        setLocation(state, payload) {
+            state.ticket.bus = payload
         },
-        setuser(state, username) {
+        setUser(state, username) {
             state.user.username = username;
             state.user.is_logged_in = true;
         },
-        setBus(state, payload){
-            state.bus.var = true;
-            state.bus.data = payload;
-            state.bus.started = payload.started || new Date().getUTCMilliseconds()
+        setTicket(state, payload){
+            state.ticket = payload;
         },
         closeFaq(state){
-            state.faq_open = !state.faq_open;
+            state.settings.faq_open = !state.faq_open;
         },
         setRegistered(state, value){
-            state.registered=value;
+            state.settings.registered=value;
         },
         setLogged(state, value){
-            state.logged=value;
+            state.settings.logged=value;
         },
         setLoggedOut(state, value){
-            state.loggedOut=value;
+            state.settings.loggedOut=value;
         }
     },
     actions: {
@@ -114,9 +101,9 @@ const store = createStore({
                 let date = new Date(`${context.state.date}T${context.state.time}Z`).getTime();
                 const res = await axios.get("/api/buses/buses", {
                     params: {
-                        from: context.state.from,
-                        to: context.state.to,
-                        date: date
+                        from: context.state.ticket.bus.from,
+                        to: context.state.ticket.bus.to,
+                        date: context.state.ticket.bus.date
                     }
                 })
                 console.log("response", res, date);

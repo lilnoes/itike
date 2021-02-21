@@ -46,7 +46,7 @@ export default {
     const logged = ref(false);
     watch(is_logged_in, (newval, oldval) => {
       if(oldval) log_text.value = `Konti yanyu mwayisohotsemo`;
-      else if(!store.state.logged) return;
+      else if(!store.state.settings.logged) return;
       else log_text.value = `Murakaza neza nyakubahwa ${username.value}`;
       logged.value = true;
       setTimeout(()=>logged.value=false, 5000);

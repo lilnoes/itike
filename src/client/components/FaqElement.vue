@@ -14,7 +14,7 @@ export default {
     setup(props){
         const store = useStore();
         const is_open = ref(false);
-        watch(()=>store.state.faq_open, (newVal, oldVal)=>{
+        watch(()=>store.state.settings.faq_open, (newVal, oldVal)=>{
             is_open.value = false;
             console.log("faq state changed");
         })

@@ -38,6 +38,7 @@ import InlineSvg from "vue-inline-svg";
 import { useStore } from "vuex";
 import Bus from "../components/Bus.vue";
 import axios from "axios";
+import utils from "../js/utils.js"
 export default {
   components: { Bus, InlineSvg},
   setup(props) {
@@ -45,10 +46,15 @@ export default {
     const change_url = ref("https://itike.s3.amazonaws.com/assets/repeat.svg");
     const spinner_url = ref("https://itike.s3.amazonaws.com/assets/spinner.svg");
     const progress = ref(true);
-    const from = ref(store.state.from);
-    const to = ref(store.state.to);
-    const date = ref(store.state.date);
-    const time = ref(store.state.time);
+    const ticket = ref(store.state.ticket);
+    console.log("ticket", ticket);
+    const from = ref(ticket.value.bus.from);
+    const to = ref(ticket.value.bus.to);
+    const _date = new Date(ticket.value.bus.date);
+    console.log("date", _date);
+    const date = ref(`${_date.getFullYear()}-${utils.pad(_date.getMonth())}-${utils.pad(_date.getDate())}`);
+    console.log("date", date);
+    const time = ref(ticket.value.bus.time);
     const options = ref(store.state.options);
     const buses = computed(() => store.state.buses);
     onMounted(async() => {
@@ -70,7 +76,7 @@ export default {
     const search = () => {
       progress.value=true;
       console.log("searching...");
-      store.commit("setlocation", {
+      store.commit("setLocation", {
         from: from.value,
         to: to.value,
         date: date.value,

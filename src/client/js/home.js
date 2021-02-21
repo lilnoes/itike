@@ -73,7 +73,7 @@ const store = createStore({
             state.ticket = payload;
         },
         closeFaq(state){
-            state.settings.faq_open = !state.faq_open;
+            state.settings.faq_open = !state.settings.faq_open;
         },
         setRegistered(state, value){
             state.settings.registered=value;

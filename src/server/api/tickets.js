@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const User = require("../../models/User.js")
 const Bus = require("../../models/Bus.js")
 const Ticket = require("../../models/Ticket.js")
+const BTicket = require("../../models/BTicket.js")
 const utils = require("../api/utils.js")
 const Bull = require("bull")
 const QRCode = require("qrcode")
@@ -29,7 +30,7 @@ freeTicketsQueue.process(async (job) => {
 deleteTicketsQueue.process(async (job) => {
     try {
         await utils.getDefaultConnection();
-        Ticket.deleteOne({ _id: job.data.id })
+        Ticket.delete({ _id: job.data.id, deleted: true})
         console.log("finished deleting job", job.data);
     } catch (e) { console.log("failed deleting job", job.data); }
 })
@@ -76,6 +77,22 @@ router.get("/existingticket", async (req, res) => {
 router.post("/free", async(req, res)=>{
     console.log("turned back");
     res.send("OK");
+})
+
+router.post("/buy-ticket", async(req, res)=>{
+    try{
+    const bTicket = new BTicket();
+    bTicket.email = req.body.email;
+    bTicket.ticket = req.body.ticket_id;
+    bTicket.session_id = req.session.id;
+    bTicket.phone = req.body.phone;
+    bTicket.first_name = req.body.first_name;
+    bTicket.last_name = req.body.last_name;
+    await bTicket.save()
+
+    return res.status(200).send({code: 200, text: "created ticket successfully", id: bTicket._id})
+    }catch(e){console.log("error", e);}
+    res.status(500).send({text: "try again!"})
 })
 
 module.exports = router

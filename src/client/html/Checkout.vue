@@ -24,27 +24,11 @@
         <p class="font-bold mt-3">Amategeko</p>
         <p>iyi tike ntago isubizwa</p>
       </div>
-      <div class="w-1/3 p-2 m-1 relative shadow rounded-lg">
-        <h2 class="title">imyirondoro</h2>
-        <hr class="m-2" />
-        <div>
-          <label for="imeri" class="block">imeri</label>
-          <input type="email" name="imeri" />
-        </div>
-        <div class="mt-3">
-          <label for="imeri">telefon</label>
-          <input type="email" />
-        </div>
-        <div class="mt-3">
-          <label for="imeri">first name</label>
-          <input type="email" />
-        </div>
-        <div class="mt-3">
-          <label for="imeri">last name</label>
-          <input type="email" />
-        </div>
-        <button class="p-2 text-xl font-bold bg-green-800 text-white mt-2 rounded-lg">Iyandikishe</button>
+
+      <div class="w-1/3 p-2 m-1">
+      <imyirondoro></imyirondoro>
       </div>
+      
       <div class="w-1/3 p-2 m-1 relative shadow rounded-lg">
         <h2 class="title">Kwishyura</h2>
         <hr class="m-3" />
@@ -77,7 +61,9 @@ import { useRouter } from "vue-router";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import axios from "axios";
+import Imyirondoro from "../components/Imyirondoro.vue"
 export default {
+  components: {Imyirondoro},
   beforeRouteEnter(to, from) {
     console.log("to", to, "from", from.path);
   },
@@ -111,7 +97,7 @@ export default {
         console.log(bus.value);
       } catch (e) {
         console.log("error no existing");
-        router.push("/buses");
+        router.replace("/buses");
       }
       id.value = setInterval(() => {
         now.value = Date.now();

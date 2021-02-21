@@ -101,7 +101,6 @@ const store = createStore({
 
         async getBuses(context) {
             try {
-                let date = new Date(`${context.state.date}T${context.state.time}Z`).getTime();
                 const res = await axios.get("/api/buses/buses", {
                     params: {
                         from: context.state.ticket.bus.from,
@@ -109,7 +108,7 @@ const store = createStore({
                         date: context.state.ticket.bus.date
                     }
                 })
-                console.log("response", res, date);
+                console.log("response", res, context.state.ticket.bus.date);
                 context.state.buses = res.data
             } catch (e) { console.log(e, "error when getting buses"); }
         }

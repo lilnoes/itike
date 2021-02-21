@@ -3,8 +3,11 @@ _This project is not publicly available, but screenshots can be shown_
 
 # Error codes
 *403* password and email doesn't match
+
 *401* email not found
-*200* success 
+
+*200* success
+
 *500* exception caught on the server
 
 ## HomePage

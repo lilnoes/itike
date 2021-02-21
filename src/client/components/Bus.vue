@@ -1,18 +1,19 @@
 <template>
   <div class="relative h-auto bg-white m-4 rounded-lg shadow-xl">
     <div>
+      <p class="ml-2 font-bold text-sm">Volcano Express</p>
       <div class="h-14 w-52 inline-block">
         <img src="../assets/volcano.png" />
       </div>
-      <p class="relative inline ml-72 text-2xl font-bold">{{ time }}</p>
-      <button @click="fata" class="relative inline float-right m-3 mt-8 p-2 bg-green-800 text-white rounded-lg font-bold">Fata</button>
-      <p class="relative inline float-right right-80 mt-8 text-2xl font-bold">2000 RWF</p>
+      <p class="relative inline ml-72 -top-10 text-2xl font-bold">{{ time }}</p>
+      <button @click="fata" class="relative inline float-right m-3 -top-3 p-2 bg-green-800 text-white rounded-lg font-bold">Fata</button>
+      <p class="relative inline float-right right-80 -top-1 text-2xl font-bold">2000 RWF</p>
       <div class="clear-both"></div>
     </div>
     <!-- <p class="inline">{{ bus.date }}</p> -->
-    <p class="relative text-center -mt-5 ml-5 text-gray-700 text-xl">{{ from }} > {{ to }}</p>
-    <p class="relative text-center ml-5 -mt-0 text-gray-700 text-sm">(amasaha 5)</p>
-    <hr class="border-4 mx-5" />
+    <p class="relative text-center -top-10 ml-5 text-gray-700 text-xl">{{ from }} > {{ to }}</p>
+    <p class="relative text-center ml-5 -top-10 text-gray-700 text-sm">(amasaha 5)</p>
+    <hr class="relative border-4 mx-3 -mt-6" />
     <p class="float-right  mr-4 font-bold text-xl text-gray-600">yuzuye</p>
     <div class="clear-both mb-2"></div>
   </div>

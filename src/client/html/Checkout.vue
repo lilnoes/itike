@@ -6,8 +6,8 @@
     </div>
     <div class="flex items-start flex-row p-1">
       <div class="w-1/3 p-2 m-1 relative shadow rounded-lg">
-        <img :src="src" class="w-32 h-10" />
-        <div class="absolute inset-y-0 right-1">Volcano Express</div>
+        <img :src="type_url" class="w-32 h-10" />
+        <div class="absolute inset-y-0 right-1">{{type}}</div>
         <hr class="m-1" />
         <div class="font-bold">
           <span class="float-left">Uvuye</span
@@ -20,7 +20,7 @@
         </div>
         <div class="clear-both"></div>
         <p class="font-bold mt-3">Igihe</p>
-        <p>1 Ukuboza 2020</p>
+        <p>{{date}}</p>
         <p class="font-bold mt-3">Amategeko</p>
         <p>iyi tike ntago isubizwa</p>
       </div>
@@ -43,6 +43,7 @@
           <label for="imeri">last name</label>
           <input type="email" />
         </div>
+        <button class="p-2 text-xl font-bold bg-green-800 text-white mt-2 rounded-lg">Iyandikishe</button>
       </div>
       <div class="w-1/3 p-2 m-1 relative shadow rounded-lg">
         <h2 class="title">Kwishyura</h2>
@@ -85,9 +86,15 @@ export default {
     const store = useStore();
     const router = useRouter();
     const mins = 15;
-    const bus = computed(() => store.state.bus);
+    const ticket = computed(() => store.state.ticket);
+    console.log("ticket", ticket.value);
+    const bus = computed(()=>ticket.value.bus)
     console.log("bus", bus);
-    const start = computed(() => bus.value.started + mins * 60 * 1000);
+    const type = computed(()=>bus.value.type);
+    const type_url = computed(()=>bus.value.type_url);
+    const date = computed(()=>new Date(bus.value.date).toDateString());
+    window.date = date;
+    const start = computed(() => new Date(ticket.value.started).getTime() + mins * 60 * 1000);
     const id = ref(0);
     const now = ref(Date.now());
     const time = computed(() =>
@@ -97,12 +104,9 @@ export default {
       try {
         const res = await axios.get("/api/tickets/existingticket");
         const ticket = res.data.ticket;
+        console.log("ticket", ticket);
         console.log("time started", new Date(ticket.started).getTime());
-        store.commit("setBus", {
-          started: new Date(ticket.started).getTime(),
-          from: ticket.bus.from,
-          to: ticket.bus.to,
-        });
+        store.commit("setTicket", ticket);
         console.log("existing", res.data);
         console.log(bus.value);
       } catch (e) {
@@ -128,7 +132,7 @@ export default {
       }
     };
 
-    return { time, bus, buy, src };
+    return { time, bus, buy, src, type, type_url, date};
   },
 };
 </script>

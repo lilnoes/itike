@@ -50,7 +50,7 @@ export default {
     const time = computed(() => _date.toTimeString().slice(0, 5));
 
     const fata = async () => {
-      await store.commit("setTicket", props.bus);
+      await store.commit("setBus", props.bus);
       try {
         const res = await axios.post("/api/tickets/initialticket", {
           bus_id: props.bus._id,

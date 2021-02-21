@@ -52,7 +52,7 @@ export default {
     const to = ref(ticket.value.bus.to);
     const _date = new Date(ticket.value.bus.date);
     console.log("date", _date);
-    const date = ref(`${_date.getFullYear()}-${utils.pad(_date.getMonth())}-${utils.pad(_date.getDate())}`);
+    const date = ref(`${_date.getFullYear()}-${utils.pad(_date.getMonth()+1)}-${utils.pad(_date.getDate())}`);
     console.log("date", date);
     const time = ref(ticket.value.bus.time);
     const options = ref(store.state.options);

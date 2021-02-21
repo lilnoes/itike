@@ -53,7 +53,7 @@ const store = createStore({
         return {
             user: { username: "", is_logged_in: false, logged_at: Date.now() },
             options: options,
-            ticket: {started: Date.now, bus: {date: Date.now(), from: options[0], to: options[1]}},
+            ticket: {started: Date.now(), bus: {date: Date.now(), from: options[0], to: options[1]}},
             settings: {faq_open: false, registered: false, logged: false, loggedOut: false},
             buses: [],
         }
@@ -65,6 +65,9 @@ const store = createStore({
         setUser(state, username) {
             state.user.username = username;
             state.user.is_logged_in = true;
+        },
+        setBus(state, payload){
+            state.ticket.bus = payload;
         },
         setTicket(state, payload){
             state.ticket = payload;

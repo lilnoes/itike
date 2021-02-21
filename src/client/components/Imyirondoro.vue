@@ -4,25 +4,40 @@
     <hr class="m-2" />
     <div>
       <label for="imeri" class="block">imeri</label>
-      <input v-model="email" type="email" name="imeri" />
+      <input :disabled="success" :class="[success? disabled_input_class: enabled_input_class]" v-model="email" type="email" id="imeri" />
     </div>
     <div class="mt-3">
-      <label for="imeri">telefon</label>
-      <input v-model="phone" type="tel" />
+      <label for="tel">telefon</label>
+      <input :disabled="success" :class="[success? disabled_input_class: enabled_input_class]" v-model="phone" type="tel" id="tel"/>
     </div>
     <div class="mt-3">
-      <label for="imeri">first name</label>
-      <input v-model="first_name" type="email" />
+      <label for="fname">first name</label>
+      <input :disabled="success" :class="[success? disabled_input_class: enabled_input_class]" v-model="first_name" type="email" id="fname"/>
     </div>
     <div class="mt-3">
-      <label for="imeri">last name</label>
-      <input v-model="last_name" type="email" />
+      <label for="lname">last name</label>
+      <input :disabled="success" :class="[success? disabled_input_class: enabled_input_class]" v-model="last_name" type="email" id="lname"/>
     </div>
+
+    <div class="mt-3" v-show="!success">
+      <label class="inline" for="imeri">nemeye <span class="font-bold text-sm underline">aya</span> mabwiriza</label>
+      <input class="inline" v-model="agree" type="checkbox" />
+    </div>
+
+    
+    <p class="text-red-800 font-bold text-sm">{{error}}</p>
     <button
         @click="register"
       class="p-2 text-xl font-bold bg-green-800 text-white mt-2 rounded-lg"
     >
       Emeza
+    </button>
+
+    <button
+        @click="success=false" v-show="success"
+      class="p-1 ml-5 font-bold bg-gray-500 text-white rounded-lg"
+    >
+      Hindura
     </button>
   </div>
 </template>
@@ -30,9 +45,6 @@
 <style scoped>
 label {
   @apply block;
-}
-input {
-  @apply border-black border-2;
 }
 .title {
   @apply font-bold ml-3 text-lg;
@@ -52,7 +64,18 @@ export default {
         const phone = ref("");
         const first_name = ref("");
         const last_name = ref("");
+        const agree = ref(false);
+        const error = ref("");
+        const success = ref(false);
+        const disabled_input_class = ref("font-bold text-gray-500 disabled");
+        const enabled_input_class = ref("border-black border-2");
         const register = async()=>{
+            error.value = "";
+            if(email.value.length<=8) return error.value="imeri ntago ibaho";
+            if(phone.value.length<=10) return error.value="telefone ntago ibaho";
+            if(first_name.value.length<=3) return error.value="first name ntago ibaho";
+            if(last_name.value.length<=3) return error.value="last name ntago ibaho";
+            if(!agree.value) return error.value="mugomba kwemera amategeko";
             try{
                 const res = await axios.post("api/tickets/buy-ticket", {
                     email: email.value,
@@ -62,9 +85,10 @@ export default {
                     ticket_id: ticket._id,
                 })
                 console.log("created bticket", res.data);
-            }catch(e){console.log("error registering");}
+                success.value = true;
+            }catch(e){console.log("error registering"); error.value="mwongere mugerageze"}
         }
-        return {email, phone, first_name, last_name, register}
+        return {email, phone, first_name, last_name, register, agree, error, success, enabled_input_class, disabled_input_class}
     }
 }
 </script>

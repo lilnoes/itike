@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       borderRadius: {"circle": "100%"},
+      zIndex: {1: "1", 2: "2", 3 : "3"},
     },
   },
   variants: {

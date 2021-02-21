@@ -1,83 +1,24 @@
 <template>
-  <div class="ticket w3-container bg-white">
-    <div class="image">
-      <img src="../assets/volcano.png" />
+  <div class="relative h-auto bg-white m-4 rounded-lg shadow-xl">
+    <div>
+      <div class="h-14 w-52 inline-block">
+        <img src="../assets/volcano.png" />
+      </div>
+      <p class="relative inline ml-72 text-2xl font-bold">{{ time }}</p>
+      <button @click="fata" class="relative inline float-right m-3 mt-8 p-2 bg-green-800 text-white rounded-lg font-bold">Fata</button>
+      <p class="relative inline float-right right-80 mt-8 text-2xl font-bold">2000 RWF</p>
+      <div class="clear-both"></div>
     </div>
-    <p class="date">{{ date }}</p>
-    <p class="time">{{ time }}</p>
-    <p class="location">{{ from }} > {{ to }}</p>
-    <p class="duration">(amasaha 5)</p>
-    <p class="money">2000 RWF</p>
-    <button @click="fata" class="w3-btn fata">Fata</button>
-    <p class="imyanya">yuzuye</p>
-    <hr />
+    <!-- <p class="inline">{{ bus.date }}</p> -->
+    <p class="relative text-center -mt-5 ml-5 text-gray-700 text-xl">{{ from }} > {{ to }}</p>
+    <p class="relative text-center ml-5 -mt-0 text-gray-700 text-sm">(amasaha 5)</p>
+    <hr class="border-4 mx-5" />
+    <p class="float-right  mr-4 font-bold text-xl text-gray-600">yuzuye</p>
+    <div class="clear-both mb-2"></div>
   </div>
 </template>
 
 <style lang="less" scoped>
-@import "../css/variables.less";
-.ticket {
-  color: @dark;
-  box-shadow: 0px 4px 4px rgba(77, 77, 77, 0.74);
-  border-radius: 10px;
-  width: 90%;
-  position: relative;
-  height: 150px;
-  margin-left: 5%;
-  margin-top: 1%;
-  overflow: hidden;
-  p,
-  hr,
-  button {
-    position: absolute;
-  }
-  img {
-    width: 100%;
-    height: 100%;
-  }
-  .image {
-    height: 50px;
-    width: 100px;
-  }
-  hr {
-    color: red;
-  }
-  .fata {
-    right: 10px;
-    top: 20px;
-  }
-  hr {
-    width: 98%;
-    top: 50%;
-    opacity: 0.5;
-    border: 1px solid #4d4d4d;
-    left: 0.5%;
-  }
-  .imyanya {
-    right: 2%;
-    top: 70%;
-  }
-  .time {
-    top: 0%;
-    left: 30%;
-  }
-  .location {
-    top: 12%;
-    left: 33%;
-  }
-  .duration {
-    top: 23%;
-    left: 33%;
-  }
-  .money {
-    right: 20%;
-    top: 10%;
-  }
-  .date {
-    top: 0%;
-    left: 34%;
-  }
-}
 </style>
 
 <script>

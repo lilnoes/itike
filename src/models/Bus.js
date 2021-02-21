@@ -7,7 +7,7 @@ const BusSchema = new mongoose.Schema({
     hours: {type: Number, default: 5},
     fee: {type: Number, default: 2000},
     plaka: {type: String},
-    icon: {type: String},
+    type_url: {type: String, default: "https://itike.s3.amazonaws.com/assets/volcano.png"},
     date: {type: Date},
     taken_places: {type: Number, default: 0},
     available_places: {type: Number, default: 24},

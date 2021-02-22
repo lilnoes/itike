@@ -58,6 +58,8 @@ export default {
     const options = ref(store.state.options);
     const buses = computed(() => store.state.buses);
     onMounted(async() => {
+      console.log("dispatching buses in Buses.vue");
+      console.log("current state", store.state.ticket);
       store.dispatch("getBuses");
       axios.post("/cookie");
     });

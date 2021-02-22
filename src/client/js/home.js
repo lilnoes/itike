@@ -53,8 +53,8 @@ const store = createStore({
         return {
             user: { username: "", is_logged_in: false, logged_at: Date.now() },
             options: options,
-            ticket: {started: Date.now(), bus: {date: Date.now(), from: options[0], to: options[1]}},
-            settings: {faq_open: false, registered: false, logged: false, loggedOut: false},
+            ticket: { started: Date.now(), bus: { date: Date.now(), from: options[0], to: options[1] } },
+            settings: { faq_open: false, registered: false, logged: false, loggedOut: false },
             buses: [],
         }
     },
@@ -66,23 +66,23 @@ const store = createStore({
             state.user.username = username;
             state.user.is_logged_in = true;
         },
-        setBus(state, payload){
+        setBus(state, payload) {
             state.ticket.bus = payload;
         },
-        setTicket(state, payload){
+        setTicket(state, payload) {
             state.ticket = payload;
         },
-        closeFaq(state){
+        closeFaq(state) {
             state.settings.faq_open = !state.settings.faq_open;
         },
-        setRegistered(state, value){
-            state.settings.registered=value;
+        setRegistered(state, value) {
+            state.settings.registered = value;
         },
-        setLogged(state, value){
-            state.settings.logged=value;
+        setLogged(state, value) {
+            state.settings.logged = value;
         },
-        setLoggedOut(state, value){
-            state.settings.loggedOut=value;
+        setLoggedOut(state, value) {
+            state.settings.loggedOut = value;
         }
     },
     actions: {
@@ -101,12 +101,10 @@ const store = createStore({
 
         async getBuses(context) {
             try {
-                const res = await axios.get("/api/buses/buses", {
-                    params: {
-                        from: context.state.ticket.bus.from,
-                        to: context.state.ticket.bus.to,
-                        date: context.state.ticket.bus.date
-                    }
+                const res = await axios.post("/api/buses/buses", {
+                    from: context.state.ticket.bus.from,
+                    to: context.state.ticket.bus.to,
+                    date: context.state.ticket.bus.date
                 })
                 console.log("response", res, context.state.ticket.bus.date);
                 context.state.buses = res.data

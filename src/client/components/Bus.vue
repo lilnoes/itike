@@ -6,7 +6,7 @@
         <img :src="type_url" />
       </div>
       <p class="relative inline ml-72 -top-10"><span class="text-2xl font-bold">{{ time }}</span><span class="font-bold text-sm ml-2 text-gray-600"> {{date}}</span></p>
-      <button @click="fata" class="relative inline float-right m-3 -top-3 p-2 bg-green-800 text-white rounded-lg font-bold z-1">Fata</button>
+      <button @click="fata" class="relative fata">Fata<span v-show="progress"><img class="w-5 h-5 inline ml-1 animate-spin" :src="spinner_url"/></span></button>
       <p class="relative inline float-right right-80 -top-1 text-2xl font-bold">{{fee}} RWF</p>
       <div class="clear-both"></div>
     </div>
@@ -20,6 +20,9 @@
 </template>
 
 <style lang="less" scoped>
+.fata{
+  @apply active:bg-white active:text-green-800 inline float-right m-3 -top-3 p-2 bg-green-800 text-white rounded-lg font-bold z-1;
+}
 </style>
 
 <script>
@@ -44,22 +47,25 @@ export default {
     const type = ref(props.bus.type);
     const fee = ref(props.bus.fee);
     const type_url = ref(props.bus.type_url);
+    const spinner_url = "https://itike.s3.amazonaws.com/assets/spinner.svg";
+    const progress = ref(false);
     const places = computed(() => props.bus.available_places == 0 ? "yuzuye": `imyanya ${props.bus.available_places}`);
     let _date = new Date(props.bus.date);
     const date = computed(() => _date.toDateString());
     const time = computed(() => _date.toTimeString().slice(0, 5));
 
     const fata = async () => {
+      progress.value = true;
       await store.commit("setBus", props.bus);
       try {
         const res = await axios.post("/api/tickets/initialticket", {
           bus_id: props.bus._id,
         });
-      } catch (e) {}
+      } catch (e) {progress.value=false;}
       await router.push("/checkout");
     };
 
-    return { from, to, date, time, fata, hours, places, type_url, type, fee};
+    return { from, to, date, time, fata, hours, places, type_url, type, fee, spinner_url, progress};
   },
 };
 </script>

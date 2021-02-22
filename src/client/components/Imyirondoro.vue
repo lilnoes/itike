@@ -27,6 +27,7 @@
     
     <p class="text-red-800 font-bold text-sm">{{error}}</p>
     <button
+        v-show="!success"
         @click="register"
       class="p-2 text-xl font-bold bg-green-800 text-white mt-2 rounded-lg"
     >
@@ -58,8 +59,7 @@ import axios from "axios";
 export default {
     setup(props){
         const store = useStore();
-        const ticket = store.state.ticket;
-        console.log("ticket", ticket);
+        const ticket = computed(()=>store.state.ticket);
         const email = ref("");
         const phone = ref("");
         const first_name = ref("");
@@ -82,10 +82,12 @@ export default {
                     phone: phone.value,
                     first_name: first_name.value,
                     last_name: last_name.value,
-                    ticket_id: ticket._id,
+                    ticket_id: ticket.value._id,
+                    bus_id: ticket.value.bus._id,
                 })
-                console.log("created bticket", res.data);
                 success.value = true;
+                store.commit("setBTicket", res.data.bTicket)
+                console.log("bticket", res.data);
             }catch(e){console.log("error registering"); error.value="mwongere mugerageze"}
         }
         return {email, phone, first_name, last_name, register, agree, error, success, enabled_input_class, disabled_input_class}

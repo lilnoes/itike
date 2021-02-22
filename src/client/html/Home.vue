@@ -80,7 +80,6 @@ export default {
     const ukagera = ref(store.state.ticket.bus.to);
 
     const goToTickets = async () => {
-      console.log("date", itariki.value, isaha.value);
       store.commit("setLocation", {
         from: uhagurukiye.value,
         to: ukagera.value,

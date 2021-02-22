@@ -53,6 +53,8 @@ router.post("/initialticket", async (req, res) => {
         bus.available_places -= 1;
         bus.pending_places += 1;
         ticket.save();
+        req.session.ticket_id = ticket._id;
+        req.session.bus_id = bus._id;
         bus.save()
         return res.status(200).send({ code: 200, text: "bus ready to be taken" });
     } catch (e) { return res.status(500).send({ code: 500, text: "try again" }); }
@@ -82,15 +84,18 @@ router.post("/free", async(req, res)=>{
 router.post("/buy-ticket", async(req, res)=>{
     try{
     const bTicket = new BTicket();
+    console.log("body buy ticket", req.body);
     bTicket.email = req.body.email;
     bTicket.ticket = req.body.ticket_id;
+    bTicket.bus = req.body.bus_id;
     bTicket.session_id = req.session.id;
     bTicket.phone = req.body.phone;
     bTicket.first_name = req.body.first_name;
     bTicket.last_name = req.body.last_name;
     await bTicket.save()
+    req.session.bTicket_id = bTicket._id;
 
-    return res.status(200).send({code: 200, text: "created ticket successfully", id: bTicket._id})
+    return res.status(200).send({code: 200, text: "created ticket successfully", bTicket: bTicket})
     }catch(e){console.log("error", e);}
     res.status(500).send({text: "try again!"})
 })

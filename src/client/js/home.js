@@ -54,6 +54,7 @@ const store = createStore({
             user: { username: "", is_logged_in: false, logged_at: Date.now() },
             options: options,
             ticket: { started: Date.now(), bus: { date: Date.now(), from: options[0], to: options[1] } },
+            bTicket: null,
             settings: { faq_open: false, registered: false, logged: false, loggedOut: false },
             buses: [],
         }
@@ -71,6 +72,9 @@ const store = createStore({
         },
         setTicket(state, payload) {
             state.ticket = payload;
+        },
+        setBTicket(state, payload) {
+            state.bTicket = payload;
         },
         closeFaq(state) {
             state.settings.faq_open = !state.settings.faq_open;
@@ -90,7 +94,6 @@ const store = createStore({
             try {
                 const response = await axios.get("/api/account/status")
                 if (!response.data) {
-                    console.log("not logged in", response);
                     context.state.user.is_logged_in = false;
                     return;
                 }
@@ -101,12 +104,13 @@ const store = createStore({
 
         async getBuses(context) {
             try {
+                console.log("getting buses");
                 const res = await axios.post("/api/buses/buses", {
                     from: context.state.ticket.bus.from,
                     to: context.state.ticket.bus.to,
                     date: context.state.ticket.bus.date
                 })
-                console.log("response", res, context.state.ticket.bus.date);
+                console.log("finished getting buses");
                 context.state.buses = res.data
             } catch (e) { console.log(e, "error when getting buses"); }
         }

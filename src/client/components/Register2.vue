@@ -70,6 +70,7 @@ export default {
           const data = response.data;
           const errors = [410, 411]
           if(data.code==200){
+            console.log("success code");
             store.commit("setRegistered", true);
             router.replace("/login");
           }
@@ -78,6 +79,7 @@ export default {
           // store.dispatch("getuser");
           // router.back();
         }
+        console.log("response login", response);
       } catch (e) {
         console.log("error", e);
         error.value = "habayemo ikibazo, mwongere gato";

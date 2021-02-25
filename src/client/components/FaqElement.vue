@@ -16,7 +16,6 @@ export default {
         const is_open = ref(false);
         watch(()=>store.state.settings.faq_open, (newVal, oldVal)=>{
             is_open.value = false;
-            console.log("faq state changed");
         })
         const open = async()=>{
             await store.commit("closeFaq");

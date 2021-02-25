@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const User = require("../../models/User.js")
 const Bus = require("../../models/Bus.js")
 const Ticket = require("../../models/Ticket.js")
+const BTicket = require("../../models/BTicket.js")
 const utils = require("../api/utils.js")
 const Bull = require("bull")
 const QRCode = require("qrcode")
@@ -29,7 +30,7 @@ freeTicketsQueue.process(async (job) => {
 deleteTicketsQueue.process(async (job) => {
     try {
         await utils.getDefaultConnection();
-        Ticket.deleteOne({ _id: job.data.id })
+        Ticket.delete({ _id: job.data.id, deleted: true})
         console.log("finished deleting job", job.data);
     } catch (e) { console.log("failed deleting job", job.data); }
 })
@@ -52,6 +53,8 @@ router.post("/initialticket", async (req, res) => {
         bus.available_places -= 1;
         bus.pending_places += 1;
         ticket.save();
+        req.session.ticket_id = ticket._id;
+        req.session.bus_id = bus._id;
         bus.save()
         return res.status(200).send({ code: 200, text: "bus ready to be taken" });
     } catch (e) { return res.status(500).send({ code: 500, text: "try again" }); }
@@ -76,6 +79,25 @@ router.get("/existingticket", async (req, res) => {
 router.post("/free", async(req, res)=>{
     console.log("turned back");
     res.send("OK");
+})
+
+router.post("/buy-ticket", async(req, res)=>{
+    try{
+    const bTicket = new BTicket();
+    // console.log("body buy ticket", req.body);
+    bTicket.email = req.body.email;
+    bTicket.ticket = req.body.ticket_id;
+    bTicket.bus = req.body.bus_id;
+    bTicket.session_id = req.session.id;
+    bTicket.phone = req.body.phone;
+    bTicket.first_name = req.body.first_name;
+    bTicket.last_name = req.body.last_name;
+    await bTicket.save()
+    req.session.bTicket_id = bTicket._id;
+
+    return res.status(200).send({code: 200, text: "created ticket successfully", bTicket: bTicket})
+    }catch(e){console.log("error", e);}
+    res.status(500).send({text: "try again!"})
 })
 
 module.exports = router

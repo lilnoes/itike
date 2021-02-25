@@ -7,7 +7,7 @@
     <div class="flex items-start flex-row p-1">
       <div class="w-1/3 p-2 m-1 relative shadow rounded-lg">
         <img :src="type_url" class="w-32 h-10" />
-        <div class="absolute inset-y-0 right-1">{{type}}</div>
+        <div class="absolute inset-y-0 right-1">{{ type }}</div>
         <hr class="m-1" />
         <div class="font-bold">
           <span class="float-left">Uvuye</span
@@ -20,37 +20,24 @@
         </div>
         <div class="clear-both"></div>
         <p class="font-bold mt-3">Igihe</p>
-        <p>{{date}}</p>
+        <p>{{ date }}</p>
         <p class="font-bold mt-3">Amategeko</p>
         <p>iyi tike ntago isubizwa</p>
       </div>
-      <div class="w-1/3 p-2 m-1 relative shadow rounded-lg">
-        <h2 class="title">imyirondoro</h2>
-        <hr class="m-2" />
-        <div>
-          <label for="imeri" class="block">imeri</label>
-          <input type="email" name="imeri" />
-        </div>
-        <div class="mt-3">
-          <label for="imeri">telefon</label>
-          <input type="email" />
-        </div>
-        <div class="mt-3">
-          <label for="imeri">first name</label>
-          <input type="email" />
-        </div>
-        <div class="mt-3">
-          <label for="imeri">last name</label>
-          <input type="email" />
-        </div>
-        <button class="p-2 text-xl font-bold bg-green-800 text-white mt-2 rounded-lg">Iyandikishe</button>
+
+      <div class="w-1/3 p-2 m-1">
+        <imyirondoro></imyirondoro>
       </div>
+
       <div class="w-1/3 p-2 m-1 relative shadow rounded-lg">
         <h2 class="title">Kwishyura</h2>
         <hr class="m-3" />
         <p>Hitamo uburyo bwo kwishyura</p>
+        <p v-show="!is_registered" class="text-red-800 font-bold text-sm">{{ error }}</p>
         <button
-          class="bg-green-800 text-white text-lg font-bold p-3 rounded-lg hover:text-green-800 hover:bg-white"
+          v-show="is_registered"
+          :disabled="!is_registered"
+          class="bg-green-800 text-white text-lg font-bold p-3 rounded-lg"
           @click="buy"
         >
           ishyura 2000 Rwf
@@ -74,12 +61,14 @@ input {
 
 <script>
 import { useRouter } from "vue-router";
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useStore } from "vuex";
 import axios from "axios";
+import Imyirondoro from "../components/Imyirondoro.vue";
 export default {
+  components: { Imyirondoro },
   beforeRouteEnter(to, from) {
-    console.log("to", to, "from", from.path);
+    // console.log("to", to, "from", from.path);
   },
   setup() {
     const src = ref("https://itike.s3.amazonaws.com/volcano.png");
@@ -87,14 +76,19 @@ export default {
     const router = useRouter();
     const mins = 15;
     const ticket = computed(() => store.state.ticket);
-    console.log("ticket", ticket.value);
-    const bus = computed(()=>ticket.value.bus)
-    console.log("bus", bus);
-    const type = computed(()=>bus.value.type);
-    const type_url = computed(()=>bus.value.type_url);
-    const date = computed(()=>new Date(bus.value.date).toDateString());
+    const bus = computed(() => ticket.value.bus);
+    const type = computed(() => bus.value.type);
+    const type_url = computed(() => bus.value.type_url);
+    const date = computed(() => new Date(bus.value.date).toDateString());
+    const is_registered = computed(()=>store.state.bTicket!=null)
+    
+    const error = ref("mubanze mwinjizemo amakuru yanyu");
+    const enabled1 = ref("red");
+    const disabled1 = ref("red");
     window.date = date;
-    const start = computed(() => new Date(ticket.value.started).getTime() + mins * 60 * 1000);
+    const start = computed(
+      () => new Date(ticket.value.started).getTime() + mins * 60 * 1000
+    );
     const id = ref(0);
     const now = ref(Date.now());
     const time = computed(() =>
@@ -104,14 +98,13 @@ export default {
       try {
         const res = await axios.get("/api/tickets/existingticket");
         const ticket = res.data.ticket;
-        console.log("ticket", ticket);
-        console.log("time started", new Date(ticket.started).getTime());
-        store.commit("setTicket", ticket);
-        console.log("existing", res.data);
-        console.log(bus.value);
+        window.store = store;
+        console.log("committing", ticket);
+        await store.commit("setTicket", ticket);
+        console.log("finished committing", ticket);
       } catch (e) {
         console.log("error no existing");
-        router.push("/buses");
+        router.replace("/buses");
       }
       id.value = setInterval(() => {
         now.value = Date.now();
@@ -121,18 +114,33 @@ export default {
 
     const buy = async () => {
       try {
-        const resp = await axios.post("api/payments/checkout");
+        console.log("buying");
+        const resp = await axios.post("api/payments/checkout", {
+          bTicket: store.state.bTicket
+        });
+        console.log("received from checkout", resp.data);
         const stripe = Stripe(
           "pk_test_51IJe88GOrOLpFC58YcxrRc8Rkp11gPrNGs0LlFc4wRUDx981Mf47rd4kYkFfdRpBihaKdAj2hfkc5jA3LnvZfGNW00lVyuQ3Hp"
         );
         return stripe.redirectToCheckout({ sessionId: resp.data.id });
-        console.log("response from server", resp);
       } catch (e) {
         console.log("error checking out", e);
       }
     };
 
-    return { time, bus, buy, src, type, type_url, date};
+    return {
+      time,
+      bus,
+      buy,
+      src,
+      type,
+      type_url,
+      date,
+      is_registered,
+      enabled1,
+      disabled1,
+      error,
+    };
   },
 };
 </script>

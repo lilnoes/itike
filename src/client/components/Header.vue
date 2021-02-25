@@ -61,7 +61,6 @@ export default {
 
     const generate = async () => {
       const res = await axios.get("api/buses/generate");
-      console.log("generate", res);
       // store.dispatch("getuser");
     };
     return {

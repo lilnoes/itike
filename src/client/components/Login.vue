@@ -66,7 +66,6 @@ export default {
         });
         if (response.data) {
           const data = response.data;
-          console.log(data);
           if(response.status != 200) {error.value = data.text; return;}
           store.dispatch("getuser");
           router.back();

@@ -47,19 +47,14 @@ export default {
     const spinner_url = ref("https://itike.s3.amazonaws.com/assets/spinner.svg");
     const progress = ref(true);
     const ticket = ref(store.state.ticket);
-    console.log("ticket", ticket);
     const from = ref(ticket.value.bus.from);
     const to = ref(ticket.value.bus.to);
     const _date = new Date(ticket.value.bus.date);
-    console.log("date", _date);
     const date = ref(`${_date.getFullYear()}-${utils.pad(_date.getMonth()+1)}-${utils.pad(_date.getDate())}`);
-    console.log("date", date);
-    const time = ref(ticket.value.bus.time);
+    const time = ref(`${utils.pad(_date.getHours())}:${utils.pad(_date.getMinutes())}`);
     const options = ref(store.state.options);
     const buses = computed(() => store.state.buses);
     onMounted(async() => {
-      const svg =await axios.get("https://itike.s3.amazonaws.com/assets/change.svg");
-      console.log("svg", svg);
       store.dispatch("getBuses");
       axios.post("/cookie");
     });
@@ -75,12 +70,10 @@ export default {
 
     const search = () => {
       progress.value=true;
-      console.log("searching...");
       store.commit("setLocation", {
         from: from.value,
         to: to.value,
-        date: date.value,
-        time: time.value,
+        date: new Date(`${date.value}T${time.value}`).getTime(),
       });
       store.dispatch("getBuses");
     };

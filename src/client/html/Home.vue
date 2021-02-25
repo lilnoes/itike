@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { setup, ref, computed } from "vue";
+import { setup, ref, computed, onMounted} from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import utils from "../js/utils.js";
@@ -66,9 +66,7 @@ import axios from "axios";
 
 export default {
   setup() {
-    const background_src = ref(
-      "https://itike.s3.amazonaws.com/assets/kigali.jpg"
-    );
+    const background_src = ref("");
     const reverse_url = ref("https://itike.s3.amazonaws.com/assets/reverse.svg");
     const store = useStore();
     const router = useRouter();
@@ -78,6 +76,10 @@ export default {
     const options = computed(() => store.state.options);
     const uhagurukiye = ref(store.state.ticket.bus.from);
     const ukagera = ref(store.state.ticket.bus.to);
+
+    onMounted(()=>{
+      background_src.value="https://itike.s3.amazonaws.com/assets/kigali.jpg";
+    })
 
     const goToTickets = async () => {
       store.commit("setLocation", {

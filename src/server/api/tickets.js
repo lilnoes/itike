@@ -84,7 +84,7 @@ router.post("/free", async(req, res)=>{
 router.post("/buy-ticket", async(req, res)=>{
     try{
     const bTicket = new BTicket();
-    console.log("body buy ticket", req.body);
+    // console.log("body buy ticket", req.body);
     bTicket.email = req.body.email;
     bTicket.ticket = req.body.ticket_id;
     bTicket.bus = req.body.bus_id;

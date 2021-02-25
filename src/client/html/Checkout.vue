@@ -118,7 +118,7 @@ export default {
         const resp = await axios.post("api/payments/checkout", {
           bTicket: store.state.bTicket
         });
-        console.log("received from checkout", resp.data); return;
+        console.log("received from checkout", resp.data);
         const stripe = Stripe(
           "pk_test_51IJe88GOrOLpFC58YcxrRc8Rkp11gPrNGs0LlFc4wRUDx981Mf47rd4kYkFfdRpBihaKdAj2hfkc5jA3LnvZfGNW00lVyuQ3Hp"
         );

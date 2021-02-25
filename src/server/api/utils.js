@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const _ = require("lodash")
+const nodemailer = require("nodemailer");
 
 module.exports = {
     async getDefaultConnection(conn = "mongodb://localhost/itikedatabase") {
@@ -65,6 +66,29 @@ module.exports = {
                 else date -= date % hour
                 yield { from: from, to: to, datetime: new Date(date), type: type, plaka: plaka };
             }
+    },
+
+    async sendEmail(message, subject, to) {
+        try {
+            const transporter = nodemailer.createTransport({
+                host: "smtp.leonema.tech",
+                port: 587,
+                secure: false, // true for 465, false for other ports
+                auth: {
+                    user: "itike@leonema.tech", // generated ethereal user
+                    pass: "(ncPq@t(T8", // generated ethereal password
+                },
+                ignoreTLS: true
+            });
+            let info = await transporter.sendMail({
+                from: '"do_not_reply" <itike@leonema.tech>', // sender address
+                to: to, // list of receivers
+                subject: subject, // Subject line
+                html: message, // html body
+            });
+        } catch (e) {
+            console.log("error sending email to", to, "error", e);
+        }
     }
 
 }

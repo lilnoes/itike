@@ -41,6 +41,10 @@ app.get("*", (req, res)=>{
     res.sendFile(path.join(APP_DIR, "dist", "index.html"));
 })
 
-app.listen(3000, (err)=>{
+var server = app.listen(3000, (err)=>{
     console.log("listening on port 3000")
+})
+
+process.on("uncaughtException", ()=>{
+    server.close()
 })

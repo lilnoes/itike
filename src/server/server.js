@@ -44,7 +44,3 @@ app.get("*", (req, res)=>{
 var server = app.listen(3000, (err)=>{
     console.log("listening on port 3000")
 })
-
-process.on("uncaughtException", ()=>{
-    server.close()
-})

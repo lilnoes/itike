@@ -92,6 +92,7 @@ router.post("/checkout", async (req, res) => {
 });
 
 router.post("/stripe", async (req, res) => {
+    console.log("coming here");
     try {
         await utils.getDefaultConnection();
         const session = await stripe.checkout.sessions.retrieve(
@@ -108,8 +109,8 @@ router.post("/stripe", async (req, res) => {
             const htmlMessage = `<div>
                                 <h2>ITIKE yaguzwe neza</h2>
                                 <p>itike nimero <b>${bTicket._id}<b></p>
-                                <p>iva ${bus.from} ikagera ${bus.to}</p>
-                                <p>Bus ni volcano izahaguruka ${bus.date}</p>
+                                <p>iva ${bTicket.bus.from} ikagera ${bTicket.bus.to}</p>
+                                <p>Bus ni volcano izahaguruka ${bTicket.bus.date}</p>
                                 <p>yaguzwe. Muzerekana iyi foto iri hasi mugiye kugenda</p>
                                 <p>cyangwa nimero yitike</p>
                                 <div style="width: 100px;height:100px"><img src='${bTicket.qr_url}'/></div>

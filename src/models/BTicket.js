@@ -4,6 +4,7 @@ const BTicketSchema = new mongoose.Schema({
     paid: {type: Boolean, default: false},
     session_id: {type: String},
     stripe_session_id: {type: String},
+    email_sent: {type: Boolean, default: false},
     device_id: {type: Number},
     bus: {type: mongoose.Schema.Types.ObjectId, ref: "Bus"},
     ticket: {type: mongoose.Schema.Types.ObjectId, ref: "Ticket"},

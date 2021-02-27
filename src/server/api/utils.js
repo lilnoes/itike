@@ -1,3 +1,4 @@
+require("dotenv").config()
 const mongoose = require("mongoose")
 const _ = require("lodash")
 const nodemailer = require("nodemailer");
@@ -68,20 +69,20 @@ module.exports = {
             }
     },
 
-    async sendEmail(message, subject, to) {
+    async sendEmail(message, subject, to, sender = "Sales") {
         try {
             const transporter = nodemailer.createTransport({
-                host: "smtp.leonema.tech",
-                port: 587,
+                host: process.env.SMTP_HOST,
+                port: process.env.SMTP_PORT,
                 secure: false, // true for 465, false for other ports
                 auth: {
-                    user: "itike@leonema.tech", // generated ethereal user
-                    pass: "(ncPq@t(T8", // generated ethereal password
+                    user: process.env.SMTP_USER, // generated ethereal user
+                    pass: process.env.SMTP_PASSWORD, // generated ethereal password
                 },
                 ignoreTLS: true
             });
             let info = await transporter.sendMail({
-                from: '"do_not_reply" <itike@leonema.tech>', // sender address
+                from: '${sender} <itike@leonema.tech>', // sender address
                 to: to, // list of receivers
                 subject: subject, // Subject line
                 html: message, // html body

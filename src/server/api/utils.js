@@ -82,7 +82,7 @@ module.exports = {
                 ignoreTLS: true
             });
             let info = await transporter.sendMail({
-                from: '${sender} <itike@leonema.tech>', // sender address
+                from: `${sender} <itike@leonema.tech>`, // sender address
                 to: to, // list of receivers
                 subject: subject, // Subject line
                 html: message, // html body

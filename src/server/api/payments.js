@@ -113,7 +113,7 @@ router.post("/stripe", async (req, res) => {
                                 <p>Bus ni volcano izahaguruka ${bTicket.bus.date}</p>
                                 <p>yaguzwe. Muzerekana iyi foto iri hasi mugiye kugenda</p>
                                 <p>cyangwa nimero yitike</p>
-                                <div style="width: 100px;height:100px"><img src='${bTicket.qr_url}'/></div>
+                                <div style="width: 100px;height:100px"><img src='${bTicket.qr_url}.png'/></div>
                                 <p>Tubifurije urugendo ruhire.</p>
                                 <p><i>Mwakoze gukoresha itike.com mugura itike yanyu, turabarindiriye nubutaha!</i></p>
                             </div>`;

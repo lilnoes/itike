@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { setup, ref, computed, onMounted} from "vue";
+import { setup, ref, computed, onMounted, watch} from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import utils from "../js/utils.js";
@@ -72,10 +72,19 @@ export default {
     const router = useRouter();
     const itariki = ref(utils.getStandardDate());
     const isaha = ref(utils.getStandardTime());
-    const is_none = ref(false);
+    const is_none = ref(true);
     const options = computed(() => store.state.options);
     const uhagurukiye = ref(store.state.ticket.bus.from);
     const ukagera = ref(store.state.ticket.bus.to);
+
+    watch(is_none, (newVal, oldVal)=>{
+      const date = new Date()
+      if(newVal) itariki.value = utils.getStandardDate()
+      else{
+        date.setUTCDate(date.getUTCDate() + 1)
+        itariki.value = utils.getStandardDate(date)
+      }
+    })
 
     onMounted(()=>{
       background_src.value="https://itike.s3.amazonaws.com/assets/kigali.jpg";

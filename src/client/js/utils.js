@@ -1,11 +1,11 @@
 import _ from "lodash"
-function getStandardDate(){
-    const date = getTime(new Date())
+function getStandardDate(_date = new Date()){
+    const date = getTime(_date)
     return `${date.year}-${date.month}-${date.date}`
 }
 
-function getStandardTime(){
-    const date = getTime(new Date())
+function getStandardTime(_date = new Date()){
+    const date = getTime(_date)
     return `${date.hours}:${date.minutes}`
 }
 
